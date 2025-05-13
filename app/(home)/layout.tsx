@@ -1,5 +1,6 @@
+// import Navbar from "@/components/Navbar";
 import User from "@/components/User";
-
+import styles from "@/styles/Header.module.css";
 export default function Layout({
   children,
 }: Readonly<{
@@ -7,8 +8,10 @@ export default function Layout({
 }>) {
   return (
     <div>
-      <User />
-      {children}
+      <div className={styles.layoutpage}>
+        <User />
+        {children}
+      </div>
     </div>
   );
 }
