@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { headers } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
+import Link from "next/link";
+import { headers } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 // import Header from '@/components/Header/Header';
 
 export default async function Signup({
@@ -16,20 +16,20 @@ export default async function Signup({
   } = await supabase.auth.getSession();
 
   if (session) {
-    return redirect('/');
+    return redirect("/");
   }
 
   const signUp = async (formData: FormData) => {
-    'use server';
+    "use server";
 
-    const origin = (await headers()).get('origin');
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const confirmPassword = formData.get('confirmPassword') as string;
+    const origin = (await headers()).get("origin");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
     const supabase = createClient();
 
     if (password !== confirmPassword) {
-      return redirect('/signup?message=Passwords do not match');
+      return redirect("/signup?message=Passwords do not match");
     }
 
     const { error } = await supabase.auth.signUp({
@@ -41,7 +41,7 @@ export default async function Signup({
     });
 
     if (error) {
-      return redirect('/signup?message=Could not authenticate user');
+      return redirect("/signup?message=Could not authenticate user");
     }
 
     return redirect(
@@ -51,15 +51,6 @@ export default async function Signup({
 
   return (
     <div>
-      {/* <Header /> */}
-
-      <Link
-        href="/"
-        className="py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover text-sm m-4"
-      >
-        Home
-      </Link>
-
       <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
         <form
           className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"

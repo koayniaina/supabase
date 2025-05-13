@@ -1,8 +1,7 @@
-import Link from 'next/link';
-import { headers } from 'next/headers';
-import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
-
+import Link from "next/link";
+import { headers } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function ForgotPassword({
   searchParams,
@@ -16,14 +15,14 @@ export default async function ForgotPassword({
   } = await supabase.auth.getSession();
 
   if (session) {
-    return redirect('/');
+    return redirect("/");
   }
 
   const confirmReset = async (formData: FormData) => {
-    'use server';
+    "use server";
 
-    const origin = (await headers()).get('origin');
-    const email = formData.get('email') as string;
+    const origin = (await headers()).get("origin");
+    const email = formData.get("email") as string;
     const supabase = createClient();
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -31,25 +30,16 @@ export default async function ForgotPassword({
     });
 
     if (error) {
-      return redirect('/forgot-password?message=Could not authenticate user');
+      return redirect("/forgot-password?message=Could not authenticate user");
     }
 
     return redirect(
-      '/confirm?message=Password Reset link has been sent to your email address'
+      "/confirm?message=Password Reset link has been sent to your email address"
     );
   };
 
   return (
     <div>
-    
-
-      <Link
-        href="/"
-        className="py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover text-sm m-4"
-      >
-        Home
-      </Link>
-
       <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
         <form
           className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"

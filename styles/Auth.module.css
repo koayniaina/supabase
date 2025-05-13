@@ -1,0 +1,56 @@
+.auth{
+    height: 100vh;
+    background-color: rgb(201, 201, 201);
+}
+
+.login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 4px;
+    padding: 20px 40px;
+    transform: translate(-50% , -50%);
+    background-color: rgb(231, 231, 231);
+}
+
+.login .text{
+    font-size: 1.2rem;
+    color: rgb(23, 104, 209);
+}
+
+.input{
+    width: 100%;
+    border: 1px solid rgb(49, 49, 49);
+    margin: 1rem 0;
+    padding: .3rem .6rem;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    input{
+        border: none;
+        outline: none;
+    }
+}
+
+.button{
+    width: 100%;
+    background-color: rgb(49, 49, 49);
+    padding: .3rem ;
+    border-radius: 3px;
+    margin: .8rem 0 .8rem;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+.password{
+    display: flex;
+    justify-content: end;
+    color: rgb(23, 104, 209);
+}
+.register {
+   
+    color: rgb(23, 104, 209);
+}
+

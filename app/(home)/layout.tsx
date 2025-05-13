@@ -1,4 +1,3 @@
-// import Navbar from "@/components/Navbar";
 import User from "@/components/User";
 import styles from "@/styles/Header.module.css";
 export default function Layout({

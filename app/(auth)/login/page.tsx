@@ -1,7 +1,10 @@
-// import Header from '@/components/Header/Header';
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import styles from "@/styles/Auth.module.css";
 import { redirect } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
+
+import { MdLockOutline } from "react-icons/md";
 
 export default async function Login({
   searchParams,
@@ -38,68 +41,37 @@ export default async function Login({
   };
 
   return (
-    <div>
-      {/* <Header /> */}
+    <>
+      <div className={styles.login}>
+        <form action={signIn}>
+          <p  className={styles.text}>Sign In</p>
+          <div className={styles.input}>
+            <FaRegUser className={styles.icon}/>
+            <input name="email" placeholder="me@example.com" required />
+          </div>
 
-      <Link
-        href="/"
-        className="py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover text-sm m-4"
-      >
-        Home
-      </Link>
+          <div className={styles.input}>
+            <MdLockOutline  className={styles.icon}/>
+            <input
+              type="password"
+              name="password"
+              placeholder="password..."
+              required
+            />
+          </div>
+          <p>
+            <Link href="/forgot-password" className={styles.password}>Forgot Password?</Link>
+          </p>
 
-      <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
-        <form
-          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"
-          action={signIn}
-        >
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <button className="bg-indigo-700 rounded-md px-4 py-2 text-foreground mb-2">
-            Sign In
-          </button>
+          <button className={styles.button}>Login</button>
 
-          {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
+          {searchParams?.message && <p>{searchParams.message}</p>}
+
+          <p>
+            I don't have account ? <Link href="/register" className={styles.register}>Register</Link>
+          </p>
         </form>
-
-        <Link
-          href="/forgot-password"
-          className="rounded-md no-underline text-indigo-400 text-sm "
-        >
-          Forgotten Password.
-        </Link>
-
-        <br />
-        <br />
-
-        <Link
-          href="/register"
-          className="rounded-md no-underline text-foreground text-sm"
-        >
-          Don't have an Account? Sign Up
-        </Link>
       </div>
-    </div>
+    </>
   );
 }
