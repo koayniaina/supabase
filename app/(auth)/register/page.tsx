@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-// import Header from '@/components/Header/Header';
+import styles from "@/styles/Auth.module.css";
+import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
+import Link from 'next/link';
+import { headers } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
+import { redirect } from 'next/navigation';
+
 
 export default async function Signup({
   searchParams,
@@ -16,20 +18,20 @@ export default async function Signup({
   } = await supabase.auth.getSession();
 
   if (session) {
-    return redirect("/");
+    return redirect('/');
   }
 
   const signUp = async (formData: FormData) => {
-    "use server";
+    'use server';
 
-    const origin = (await headers()).get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
+    const origin = (await headers()).get('origin');
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const confirmPassword = formData.get('confirmPassword') as string;
     const supabase = createClient();
 
     if (password !== confirmPassword) {
-      return redirect("/signup?message=Passwords do not match");
+      return redirect('/signup?message=Passwords do not match');
     }
 
     const { error } = await supabase.auth.signUp({
@@ -41,67 +43,51 @@ export default async function Signup({
     });
 
     if (error) {
-      return redirect("/signup?message=Could not authenticate user");
+      return redirect('/signup?message=Could not authenticate user');
     }
 
     return redirect(
-      `/confirm?message=Check email(${email}) to continue sign in process`
+      '/login'
     );
   };
 
   return (
     <div>
-      <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
-        <form
-          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"
-          action={signUp}
-        >
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Confirm Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="confirmPassword"
-            placeholder="••••••••"
-            required
-          />
-          <button className="bg-indigo-700 rounded-md px-4 py-2 text-foreground mb-2">
-            Sign up
-          </button>
+      <div className={styles.login}>
+        <p className={styles.text}>Sign Up</p>
+        <form action={signUp}>
+          <div className={styles.input}>
+            <MdOutlineEmail />
+            <input name="email" placeholder="me@example.com" required />
+          </div>
 
-          {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
+          <div className={styles.input}>
+            <MdLockOutline />
+            <input
+              type="password"
+              name="password"
+              placeholder="passowrd"
+              required
+            />
+          </div>
+          <div className={styles.input}>
+          <MdLockOutline />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="confirmpassword"
+              required
+            />
+          </div>
+          <button className={styles.btns}>Register</button>
+
+          {searchParams?.message && <p>{searchParams.message}</p>}
         </form>
-
-        <Link
-          href="/login"
-          className="rounded-md no-underline text-foreground text-sm"
-        >
-          Already have an account? Sign In
-        </Link>
+          <p className={styles.register}>
+            Already have an account?  <Link
+            href="/login">Login
+          </Link>
+          </p>
       </div>
     </div>
   );

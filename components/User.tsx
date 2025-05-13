@@ -20,7 +20,7 @@ export default async function User() {
     session && (
       <div>
         Hey, {session.user.email}!
-        <form action={signOut}>
+        <form action={signOut} className='flex flex-col-2'>
           <button>
             Logout
           </button>

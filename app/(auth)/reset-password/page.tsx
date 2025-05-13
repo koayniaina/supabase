@@ -1,6 +1,5 @@
-// import Header from '@/components/Header/Header';
 import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
+import styles from "@/styles/Auth.module.css";
 import { redirect } from "next/navigation";
 
 export default async function ResetPassword({
@@ -55,40 +54,28 @@ export default async function ResetPassword({
 
   return (
     <div>
-      <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
-        <form
-          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"
-          action={resetPassword}
-        >
-          <label className="text-md" htmlFor="password">
-            New Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-          <label className="text-md" htmlFor="password">
-            Confirm New Password
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            type="password"
-            name="confirmPassword"
-            placeholder="••••••••"
-            required
-          />
-          <button className="bg-indigo-700 rounded-md px-4 py-2 text-foreground mb-2">
-            Reset
-          </button>
+      <div className={styles.login}>
+        <form action={resetPassword}>
+          <p className={styles.text}>Rest Password</p>
+         <div className={styles.input}>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              required
+            />
+         </div>
+          <div className={styles.input}>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="confirmpassword"
+              required
+            />
+          </div>
+          <button className={styles.reset}>Reset</button>
 
-          {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
+          {searchParams?.message && <p>{searchParams.message}</p>}
         </form>
       </div>
     </div>

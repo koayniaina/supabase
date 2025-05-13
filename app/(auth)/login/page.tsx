@@ -2,9 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import styles from "@/styles/Auth.module.css";
 import { redirect } from "next/navigation";
-import { FaRegUser } from "react-icons/fa";
 
-import { MdLockOutline } from "react-icons/md";
+import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 
 export default async function Login({
   searchParams,
@@ -37,21 +36,21 @@ export default async function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/");
+    return redirect("/dashboard");
   };
 
   return (
     <>
       <div className={styles.login}>
         <form action={signIn}>
-          <p  className={styles.text}>Sign In</p>
+          <p className={styles.text}>Sign In</p>
           <div className={styles.input}>
-            <FaRegUser className={styles.icon}/>
+            <MdOutlineEmail className={styles.icon} />
             <input name="email" placeholder="me@example.com" required />
           </div>
 
           <div className={styles.input}>
-            <MdLockOutline  className={styles.icon}/>
+            <MdLockOutline className={styles.icon} />
             <input
               type="password"
               name="password"
@@ -59,16 +58,22 @@ export default async function Login({
               required
             />
           </div>
-          <p>
-            <Link href="/forgot-password" className={styles.password}>Forgot Password?</Link>
+          <p className={styles.password}>
+            <span><input type="checkbox"/> I Accept to the terms</span>
+            <Link href="/forgot-password" >
+              Forgot Password?
+            </Link>
           </p>
 
           <button className={styles.button}>Login</button>
 
           {searchParams?.message && <p>{searchParams.message}</p>}
 
-          <p>
-            I don't have account ? <Link href="/register" className={styles.register}>Register</Link>
+          <p className={styles.register}>
+            I don't have account ?
+            <Link href="/register" className={styles.link}>
+              Register
+            </Link>
           </p>
         </form>
       </div>

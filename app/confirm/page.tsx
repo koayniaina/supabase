@@ -1,13 +1,14 @@
+import styles from '@/styles/Auth.module.css'
 export default function Signup({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
   return (
-    <div>
-      <div className="w-full px-8 sm:max-w-lg mx-auto mt-8">
-        <p className="text-foreground">{searchParams.message}</p>
+    <>
+      <div className={styles.confirm}>
+        <p className={styles.confirm_text}>{searchParams.message}</p>
       </div>
-    </div>
+    </>
   );
 }

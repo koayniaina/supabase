@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { headers } from "next/headers";
+import styles from "@/styles/Auth.module.css";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -39,40 +40,21 @@ export default async function ForgotPassword({
   };
 
   return (
-    <div>
-      <div className="w-full px-8 sm:max-w-md mx-auto mt-4">
-        <form
-          className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground mb-4"
-          action={confirmReset}
-        >
-          <label className="text-md" htmlFor="email">
-            Enter Email Address
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
+    <>
+      <div className={styles.login}>
+        <form action={confirmReset}>
+          <div className={styles.inputs}>
+            <input name="email" placeholder="me@example.com" required />
+          </div>
 
-          <button className="bg-indigo-700 rounded-md px-4 py-2 text-foreground mb-2">
-            Confirm
-          </button>
+          <button className={styles.buts}>Confirm</button>
 
-          {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
+          {searchParams?.message && <p>{searchParams.message}</p>}
+          <p>
+            I remember my password? <Link href="/login" className={styles.link}>Login</Link>
+          </p>
         </form>
-
-        <Link
-          href="/login"
-          className="rounded-md no-underline text-foreground text-sm"
-        >
-          Remember your password? Sign in
-        </Link>
       </div>
-    </div>
+    </>
   );
 }
